@@ -454,7 +454,7 @@
       </div>
     </div>
 
-    <!-- PERFIL CIUDADANO MOCKUP -->
+    <!-- PERFIL CIUDADANO MOCKUP con switcher -->
     <div class="hero-mockup">
       <div class="mockup-header">
         <div class="mockup-dots">
@@ -465,8 +465,21 @@
         <div class="mockup-title">TRAMTO — PERFIL CIUDADANO</div>
         <div style="width:40px"></div>
       </div>
-      <div class="mockup-body">
-        <!-- Health Score -->
+
+      <!-- Switcher de perfiles -->
+      <div style="display:flex;gap:6px;padding:12px 16px 0;background:rgba(255,255,255,0.02);">
+        <button onclick="switchProfile('a')" id="btn-a"
+          style="flex:1;padding:7px;border-radius:8px;border:none;cursor:pointer;font-size:11px;font-weight:700;font-family:'DM Sans',sans-serif;transition:all .2s;background:#F59E0B;color:#0C1A2E;">
+          👔 Josu — Profesional
+        </button>
+        <button onclick="switchProfile('b')" id="btn-b"
+          style="flex:1;padding:7px;border-radius:8px;border:none;cursor:pointer;font-size:11px;font-weight:700;font-family:'DM Sans',sans-serif;transition:all .2s;background:rgba(255,255,255,0.06);color:#94A3B8;">
+          👩‍👧 María — Beneficiaria
+        </button>
+      </div>
+
+      <!-- PERFIL A: Profesional — SAT, IMSS, INFONAVIT -->
+      <div class="mockup-body" id="perfil-a">
         <div class="score-section">
           <div class="score-ring">
             <svg width="90" height="90" viewBox="0 0 90 90">
@@ -480,10 +493,7 @@
                 </linearGradient>
               </defs>
             </svg>
-            <div class="score-ring-text">
-              <div class="num">82</div>
-              <div class="label">score</div>
-            </div>
+            <div class="score-ring-text"><div class="num">82</div><div class="label">score</div></div>
           </div>
           <div class="score-info">
             <div class="score-name">Josu Moreras</div>
@@ -494,14 +504,12 @@
             </div>
           </div>
         </div>
-
-        <!-- Alerts -->
         <div class="alerts-title">Pendientes y alertas</div>
         <div class="alert-item red">
           <div class="alert-icon">🔴</div>
           <div class="alert-content">
             <div class="alert-title">Verificación vehicular vence</div>
-            <div class="alert-desc">Plazo máximo: este domingo · Módulo más cercano: Periférico Norte</div>
+            <div class="alert-desc">Plazo máximo: este domingo</div>
           </div>
           <div class="alert-action">Resolver</div>
         </div>
@@ -509,44 +517,103 @@
           <div class="alert-icon">🟡</div>
           <div class="alert-content">
             <div class="alert-title">Declaración mensual RESICO</div>
-            <div class="alert-desc">Vence el 17 de marzo · ¿Tienes tus ingresos del mes listos?</div>
+            <div class="alert-desc">Vence el 17 de marzo</div>
           </div>
           <div class="alert-action">Declarar</div>
+        </div>
+        <!-- INFONAVIT -->
+        <div style="margin-top:12px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:11px 13px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+            <span style="font-size:10px;font-weight:700;color:#F59E0B;text-transform:uppercase;letter-spacing:1px;">🏠 infonavit</span>
+            <span style="font-size:9px;background:rgba(245,158,11,0.15);color:#F59E0B;border-radius:100px;padding:2px 8px;font-weight:600;">cotizando</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+            <div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-bottom:2px;">Semanas cotizadas</div>
+              <div style="font-size:18px;font-weight:800;color:#F59E0B;">312 <span style="font-size:11px;font-weight:400;color:rgba(255,255,255,0.4);">semanas</span></div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-bottom:2px;">Subcuenta vivienda</div>
+              <div style="font-size:18px;font-weight:800;color:#F59E0B;">$84,320 <span style="font-size:10px;font-weight:400;color:rgba(255,255,255,0.4);">MXN</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PERFIL B: Beneficiaria social — Beca Bienestar + IMSS -->
+      <div class="mockup-body" id="perfil-b" style="display:none;">
+        <div class="score-section">
+          <div class="score-ring">
+            <svg width="90" height="90" viewBox="0 0 90 90">
+              <circle cx="45" cy="45" r="38" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="7"/>
+              <circle cx="45" cy="45" r="38" fill="none" stroke="url(#scoreGrad2)" stroke-width="7"
+                stroke-dasharray="238.76" stroke-dashoffset="62" stroke-linecap="round"/>
+              <defs>
+                <linearGradient id="scoreGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#059669"/>
+                  <stop offset="100%" stop-color="#34D399"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="score-ring-text"><div class="num" style="color:#34D399;">74</div><div class="label">score</div></div>
+          </div>
+          <div class="score-info">
+            <div class="score-name">María González</div>
+            <div class="score-status">CURP: GOMA850614MDFNRR08 · Iztapalapa</div>
+            <div class="score-badge" style="background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.3);">
+              <span style="width:6px;height:6px;border-radius:50%;background:#34D399;display:inline-block"></span>
+              Beneficiaria activa
+            </div>
+          </div>
+        </div>
+        <div class="alerts-title">Mis programas y beneficios</div>
+        <!-- Beca Bienestar -->
+        <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:10px;padding:11px 13px;margin-bottom:8px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+            <span style="font-size:10px;font-weight:700;color:#34D399;text-transform:uppercase;letter-spacing:1px;">🎓 Beca Bienestar</span>
+            <span style="font-size:9px;background:rgba(16,185,129,0.15);color:#34D399;border-radius:100px;padding:2px 8px;font-weight:600;">activa</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+            <div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-bottom:2px;">Próximo pago</div>
+              <div style="font-size:13px;font-weight:700;color:#fff;">15 de marzo 2026</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-bottom:2px;">Monto bimestral</div>
+              <div style="font-size:18px;font-weight:800;color:#34D399;">$2,100 <span style="font-size:10px;font-weight:400;color:rgba(255,255,255,0.4);">MXN</span></div>
+            </div>
+          </div>
+        </div>
+        <!-- Alerta renovación -->
+        <div class="alert-item yellow">
+          <div class="alert-icon">🟡</div>
+          <div class="alert-content">
+            <div class="alert-title">Renovación de beca pendiente</div>
+            <div class="alert-desc">Vence en 22 días · Sube tu constancia escolar</div>
+          </div>
+          <div class="alert-action">Renovar</div>
         </div>
         <div class="alert-item green">
           <div class="alert-icon">🟢</div>
           <div class="alert-content">
-            <div class="alert-title">CSF vigente · RFC activo</div>
-            <div class="alert-desc">Última actualización: hace 3 días · Todo en orden</div>
+            <div class="alert-title">IMSS Bienestar activo</div>
+            <div class="alert-desc">Cobertura médica vigente · Todo en orden</div>
           </div>
-          <div class="alert-action">Ver doc</div>
-        </div>
-
-        <!-- Docs -->
-        <div class="docs-row">
-          <div class="doc-chip">
-            <div class="doc-chip-icon">🪪</div>
-            <div class="doc-chip-name">INE</div>
-            <div class="doc-chip-status ok">Vigente</div>
-          </div>
-          <div class="doc-chip">
-            <div class="doc-chip-icon">📄</div>
-            <div class="doc-chip-name">CSF</div>
-            <div class="doc-chip-status ok">Al día</div>
-          </div>
-          <div class="doc-chip">
-            <div class="doc-chip-icon">🚗</div>
-            <div class="doc-chip-name">Licencia</div>
-            <div class="doc-chip-status warn">45 días</div>
-          </div>
-          <div class="doc-chip">
-            <div class="doc-chip-icon">🛂</div>
-            <div class="doc-chip-name">Pasaporte</div>
-            <div class="doc-chip-status ok">Vigente</div>
-          </div>
+          <div class="alert-action">Ver</div>
         </div>
       </div>
     </div>
+
+    <script>
+    function switchProfile(p) {
+      document.getElementById('perfil-a').style.display = p === 'a' ? 'block' : 'none';
+      document.getElementById('perfil-b').style.display = p === 'b' ? 'block' : 'none';
+      document.getElementById('btn-a').style.background = p === 'a' ? '#F59E0B' : 'rgba(255,255,255,0.06)';
+      document.getElementById('btn-a').style.color = p === 'a' ? '#0C1A2E' : '#94A3B8';
+      document.getElementById('btn-b').style.background = p === 'b' ? '#F59E0B' : 'rgba(255,255,255,0.06)';
+      document.getElementById('btn-b').style.color = p === 'b' ? '#0C1A2E' : '#94A3B8';
+    }
+    </script>
   </div>
 </section>
 
@@ -610,10 +677,17 @@
           </div>
         </div>
         <div class="dash-feat">
-          <div class="dash-feat-icon">🏢</div>
+          <div class="dash-feat-icon">🎓</div>
           <div class="dash-feat-text">
-            <h4>Versión empresarial incluida</h4>
-            <p>El mismo concepto para tu empresa: IMSS, SAT, REPSE, NOM-035, permisos y marcas en un solo lugar.</p>
+            <h4>Mis beneficios sociales</h4>
+            <p>Beca Bienestar, Jóvenes Construyendo el Futuro, pensión adultos mayores. Tramto trackea tus pagos, fechas y renovaciones para que nunca pierdas lo que te corresponde.</p>
+          </div>
+        </div>
+        <div class="dash-feat">
+          <div class="dash-feat-icon">🏠</div>
+          <div class="dash-feat-text">
+            <h4>INFONAVIT — semanas y ahorro</h4>
+            <p>Consulta tus semanas cotizadas y el saldo de tu subcuenta de vivienda en tiempo real. Sabe exactamente cuánto tienes ahorrado y cuándo puedes acceder a crédito.</p>
           </div>
         </div>
       </div>
@@ -676,6 +750,28 @@
             <div class="oblig-icon-row"><span class="oblig-icon">🪪</span><span class="status-dot green"></span></div>
             <div class="oblig-name">Licencia conducir</div>
             <div class="oblig-date">Vence en 45 días</div>
+          </div>
+        </div>
+
+        <!-- Beneficios y INFONAVIT -->
+        <div style="display:flex;gap:8px;margin-bottom:14px;">
+          <div style="flex:1;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:10px;padding:10px 12px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
+              <span style="font-size:9px;font-weight:700;color:#34D399;text-transform:uppercase;letter-spacing:1px;">mis beneficios</span>
+              <span style="font-size:8px;background:rgba(16,185,129,0.15);color:#34D399;border-radius:100px;padding:2px 6px;font-weight:600;">activo</span>
+            </div>
+            <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:1px;">🎓 Beca Bienestar</div>
+            <div style="font-size:9px;color:rgba(255,255,255,0.4);margin-bottom:3px;">Próx. pago: 15 de marzo</div>
+            <div style="font-size:13px;font-weight:800;color:#34D399;">$2,100 MXN</div>
+          </div>
+          <div style="flex:1;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:10px 12px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
+              <span style="font-size:9px;font-weight:700;color:#F59E0B;text-transform:uppercase;letter-spacing:1px;">infonavit</span>
+              <span style="font-size:8px;background:rgba(245,158,11,0.15);color:#F59E0B;border-radius:100px;padding:2px 6px;font-weight:600;">cotizando</span>
+            </div>
+            <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:1px;">🏠 Subcuenta vivienda</div>
+            <div style="font-size:9px;color:rgba(255,255,255,0.4);margin-bottom:3px;">312 semanas cotizadas</div>
+            <div style="font-size:13px;font-weight:800;color:#F59E0B;">$84,320 MXN</div>
           </div>
         </div>
 
