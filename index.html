@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tramto — Tu gobierno, bajo control</title>
+<meta name="robots" content="noindex, nofollow">
+<title>[STAGING] Tramto — Tu gobierno, bajo control</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -382,29 +383,104 @@
     .steps { grid-template-columns: 1fr; }
     .steps::before { display: none; }
     nav .nav-links { display: none; }
+    .hamburger { display: flex !important; }
+  }
+  @media (max-width: 600px) {
+    .features-grid, .plans { grid-template-columns: 1fr; }
+    .hero-stats { flex-wrap: wrap; gap: 20px; }
+    .cta-form { flex-direction: column; }
+    .cta-form .btn-primary { text-align: center; justify-content: center; }
+    .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+    .footer-links { justify-content: center; }
+    .oblig-grid { grid-template-columns: 1fr; }
+    .big-score-row { flex-direction: column; }
+  }
+
+  /* STAGING BANNER */
+  .staging-banner {
+    background: #F59E0B; color: #0C1A2E;
+    text-align: center; padding: 8px 16px;
+    font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.5px; position: relative; z-index: 200;
+  }
+  .staging-banner a { color: #0C1A2E; text-decoration: underline; }
+
+  /* HAMBURGER */
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px; cursor: pointer;
+    background: none; border: none; padding: 4px; z-index: 110;
+  }
+  .hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--white); border-radius: 2px;
+    transition: all .25s;
+  }
+  .hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* MOBILE MENU */
+  .mobile-menu {
+    display: none; position: fixed; inset: 0; z-index: 105;
+    background: var(--navy); flex-direction: column;
+    align-items: center; justify-content: center; gap: 32px;
+    padding-top: 68px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700;
+    color: var(--white); text-decoration: none; transition: color .2s;
+  }
+  .mobile-menu a:hover { color: var(--gold); }
+  .mobile-menu .mobile-cta {
+    background: var(--gold); color: var(--navy) !important;
+    padding: 14px 32px; border-radius: 10px; margin-top: 8px;
+  }
+
+  /* CTA SUCCESS MSG */
+  #cta-msg {
+    display: none; margin-top: 14px; font-size: 14px; font-weight: 500;
+    text-align: center;
   }
 </style>
 </head>
 <body>
 
+<!-- STAGING BANNER -->
+<div class="staging-banner">
+  ⚠️ ENTORNO DE STAGING — Solo para pruebas. No es el sitio de producción. No ingreses datos reales.
+</div>
+
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="#">
+  <a class="nav-logo" href="#hero">
     <div class="nav-logo-mark">T</div>
     <span class="nav-logo-name">Tramto</span>
   </a>
   <div class="nav-links">
-    <a href="#">Guía Ciudadana</a>
-    <a href="#">Mi Perfil</a>
-    <a href="#">Servicios</a>
-    <a href="#">Noticiero</a>
-    <a href="#">Precios</a>
+    <a href="#guia">Guía Ciudadana</a>
+    <a href="#perfil">Mi Perfil</a>
+    <a href="#servicios">Precios</a>
+    <a href="#noticiero">Noticiero</a>
+    <a href="#precios">Planes</a>
   </div>
-  <a class="nav-cta" href="#">Crear mi perfil →</a>
+  <a class="nav-cta" href="#cta">Crear mi perfil →</a>
+  <button class="hamburger" id="hamburger-btn" aria-label="Abrir menú" aria-expanded="false" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#guia" onclick="closeMobileMenu()">Guía Ciudadana</a>
+  <a href="#perfil" onclick="closeMobileMenu()">Mi Perfil</a>
+  <a href="#precios" onclick="closeMobileMenu()">Planes</a>
+  <a href="#noticiero" onclick="closeMobileMenu()">Noticiero</a>
+  <a href="#cta" class="mobile-cta" onclick="closeMobileMenu()">Crear mi perfil →</a>
+</div>
+
 <!-- NOTICIERO STRIP -->
-<div class="news-strip" style="margin-top:68px;">
+<div class="news-strip" id="noticiero" style="margin-top:68px;">
   <div class="news-strip-inner">
     <div class="news-tag">⚡ NOTICIERO</div>
     <div class="news-ticker">
@@ -425,7 +501,7 @@
 </div>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="hero">
   <div class="hero-inner">
     <div class="hero-text">
       <div class="hero-eyebrow">
@@ -435,8 +511,8 @@
       <h1>Tu gobierno,<br><em>bajo control.</em></h1>
       <p class="hero-sub">Tramto monitorea tu relación con el gobierno mexicano en tiempo real. Sabe qué vence, qué debes y cómo resolverlo — antes de que el gobierno te lo cobre.</p>
       <div class="hero-actions">
-        <a class="btn-primary" href="#">Crear mi perfil gratis →</a>
-        <a class="btn-ghost" href="#">Ver cómo funciona</a>
+        <a class="btn-primary" href="#cta">Crear mi perfil gratis →</a>
+        <a class="btn-ghost" href="#como-funciona">Ver cómo funciona</a>
       </div>
       <div class="hero-stats">
         <div class="stat-item">
@@ -604,21 +680,11 @@
       </div>
     </div>
 
-    <script>
-    function switchProfile(p) {
-      document.getElementById('perfil-a').style.display = p === 'a' ? 'block' : 'none';
-      document.getElementById('perfil-b').style.display = p === 'b' ? 'block' : 'none';
-      document.getElementById('btn-a').style.background = p === 'a' ? '#F59E0B' : 'rgba(255,255,255,0.06)';
-      document.getElementById('btn-a').style.color = p === 'a' ? '#0C1A2E' : '#94A3B8';
-      document.getElementById('btn-b').style.background = p === 'b' ? '#F59E0B' : 'rgba(255,255,255,0.06)';
-      document.getElementById('btn-b').style.color = p === 'b' ? '#0C1A2E' : '#94A3B8';
-    }
-    </script>
   </div>
 </section>
 
 <!-- FEATURES -->
-<section class="features">
+<section class="features" id="guia">
   <div class="features-inner">
     <div class="section-label">Lo que hace Tramto</div>
     <h2 class="section-h2">Cuatro capas que trabajan juntas.</h2>
@@ -648,7 +714,7 @@
 </section>
 
 <!-- DASHBOARD SECTION -->
-<section class="dashboard-section">
+<section class="dashboard-section" id="perfil">
   <div class="dashboard-inner">
     <div class="dashboard-text">
       <div class="section-label">Perfil Ciudadano</div>
@@ -790,7 +856,7 @@
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="how">
+<section class="how" id="como-funciona">
   <div class="how-inner">
     <div class="section-label">Cómo funciona</div>
     <h2 class="section-h2">En tres pasos. Una sola vez.</h2>
@@ -815,7 +881,7 @@
 </section>
 
 <!-- PRICING -->
-<section class="pricing">
+<section class="pricing" id="precios">
   <div class="pricing-inner">
     <div class="section-label">Planes</div>
     <h2 class="section-h2">Un plan para cada perfil ciudadano.</h2>
@@ -832,7 +898,7 @@
           <li>Guía ciudadana completa</li>
           <li>Noticiero gubernamental</li>
         </ul>
-        <a class="plan-btn" href="#">Empezar →</a>
+        <a class="plan-btn" href="#cta">Empezar →</a>
       </div>
       <div class="plan">
         <div class="plan-name">Emprendedor</div>
@@ -846,7 +912,7 @@
           <li>1 trámite express incluido</li>
           <li>Soporte prioritario</li>
         </ul>
-        <a class="plan-btn" href="#">Empezar →</a>
+        <a class="plan-btn" href="#cta">Empezar →</a>
       </div>
       <div class="plan featured">
         <div class="plan-badge">MÁS POPULAR</div>
@@ -862,7 +928,7 @@
           <li>Gestor asignado dedicado</li>
           <li>2 trámites express/mes</li>
         </ul>
-        <a class="plan-btn" href="#">Empezar →</a>
+        <a class="plan-btn" href="#cta">Empezar →</a>
       </div>
       <div class="plan">
         <div class="plan-name">PYME+</div>
@@ -877,21 +943,22 @@
           <li>4 trámites express/mes</li>
           <li>Acceso a especialistas</li>
         </ul>
-        <a class="plan-btn" href="#">Empezar →</a>
+        <a class="plan-btn" href="#cta">Empezar →</a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="cta">
+<section class="cta" id="cta">
   <div class="cta-inner">
     <h2>¿Cuándo fue la última vez que supiste exactamente <em>en qué estabas</em> con el gobierno?</h2>
     <p>Crea tu perfil ciudadano gratis. Sin tarjeta de crédito. Sin letra chica. Solo claridad.</p>
-    <div class="cta-form">
-      <input class="cta-input" type="email" placeholder="tu@correo.com">
-      <a class="btn-primary" href="#">Empezar gratis →</a>
-    </div>
+    <form class="cta-form" id="cta-form" novalidate>
+      <input class="cta-input" id="cta-email" type="email" placeholder="tu@correo.com" required autocomplete="email">
+      <button class="btn-primary" id="cta-submit" type="submit">Empezar gratis →</button>
+    </form>
+    <p id="cta-msg"></p>
   </div>
 </section>
 
@@ -907,12 +974,109 @@
     </div>
     <div class="footer-copy">© 2026 Tramto — Todos los derechos reservados</div>
     <div class="footer-links">
-      <a href="#">Privacidad</a>
-      <a href="#">Términos</a>
-      <a href="#">Contacto</a>
+      <a href="#" onclick="alert('Aviso de privacidad — Próximamente'); return false;">Privacidad</a>
+      <a href="#" onclick="alert('Términos de uso — Próximamente'); return false;">Términos</a>
+      <a href="mailto:hola@tramto.com">Contacto</a>
     </div>
   </div>
 </footer>
 
+<script>
+  // ── Profile switcher (hero mockup) ──────────────────────────────────────
+  function switchProfile(p) {
+    document.getElementById('perfil-a').style.display = p === 'a' ? 'block' : 'none';
+    document.getElementById('perfil-b').style.display = p === 'b' ? 'block' : 'none';
+    document.getElementById('btn-a').style.background = p === 'a' ? '#F59E0B' : 'rgba(255,255,255,0.06)';
+    document.getElementById('btn-a').style.color = p === 'a' ? '#0C1A2E' : '#94A3B8';
+    document.getElementById('btn-b').style.background = p === 'b' ? '#F59E0B' : 'rgba(255,255,255,0.06)';
+    document.getElementById('btn-b').style.color = p === 'b' ? '#0C1A2E' : '#94A3B8';
+  }
+
+  // ── Mobile menu ─────────────────────────────────────────────────────────
+  function toggleMobileMenu() {
+    var menu = document.getElementById('mobile-menu');
+    var btn  = document.getElementById('hamburger-btn');
+    var open = menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  function closeMobileMenu() {
+    var menu = document.getElementById('mobile-menu');
+    var btn  = document.getElementById('hamburger-btn');
+    menu.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  // Close mobile menu on ESC
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeMobileMenu();
+  });
+
+  // ── CTA email form ───────────────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', function() {
+    var form = document.getElementById('cta-form');
+    if (!form) return;
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var emailEl = document.getElementById('cta-email');
+      var btn     = document.getElementById('cta-submit');
+      var msg     = document.getElementById('cta-msg');
+      var email   = emailEl.value.trim();
+      var re      = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!email || !re.test(email)) {
+        msg.textContent = 'Por favor ingresa un correo válido.';
+        msg.style.color = '#EF4444';
+        msg.style.display = 'block';
+        emailEl.focus();
+        return;
+      }
+
+      btn.textContent = 'Enviando...';
+      btn.disabled = true;
+      btn.style.opacity = '0.75';
+
+      // TODO: reemplazar con llamada real a API / Formspree / etc.
+      setTimeout(function() {
+        msg.innerHTML = '¡Listo! Te avisamos cuando abramos el acceso anticipado. 🎉';
+        msg.style.color = '#10B981';
+        msg.style.display = 'block';
+        form.reset();
+        btn.textContent = 'Empezar gratis →';
+        btn.disabled = false;
+        btn.style.opacity = '1';
+      }, 900);
+    });
+  });
+
+  // ── Active nav link highlight on scroll ─────────────────────────────────
+  (function() {
+    var sections = ['hero','noticiero','guia','perfil','como-funciona','precios','cta'];
+    var links = document.querySelectorAll('.nav-links a');
+    var sectionMap = {
+      'guia':         '.nav-links a[href="#guia"]',
+      'perfil':       '.nav-links a[href="#perfil"]',
+      'como-funciona':'.nav-links a[href="#como-funciona"]',
+      'precios':      '.nav-links a[href="#precios"]',
+      'noticiero':    '.nav-links a[href="#noticiero"]',
+      'cta':          '.nav-links a[href="#cta"]',
+    };
+    window.addEventListener('scroll', function() {
+      var scrollY = window.scrollY + 100;
+      sections.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        if (el.offsetTop <= scrollY && el.offsetTop + el.offsetHeight > scrollY) {
+          links.forEach(function(l) { l.style.color = ''; });
+          var target = sectionMap[id];
+          if (target) {
+            var active = document.querySelector(target);
+            if (active) active.style.color = '#FFFFFF';
+          }
+        }
+      });
+    }, { passive: true });
+  })();
+</script>
 </body>
 </html>
